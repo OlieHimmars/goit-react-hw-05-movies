@@ -1,6 +1,7 @@
 import { useParams, Outlet } from 'react-router-dom';
 import { fetchMovieDetails } from 'services/api';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import Loader from '../components/Loader/Loader';
 import MovieInfo from '../components/MovieInfo/MovieInfo';
 
 export default function MovieDetailsPage() {
@@ -31,7 +32,9 @@ export default function MovieDetailsPage() {
   return (
     <>
       {details && <MovieInfo movieDetails={details} />}
-      <Outlet />
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
     </>
   );
 }
